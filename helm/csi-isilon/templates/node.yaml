@@ -72,6 +72,8 @@ spec:
           imagePullPolicy: Always
           command: [ "/csi-isilon" ]
           env:
+            - name: X_CSI_ISILON_PLUGIN_NAME
+              value: "{{ .Values.pluginName }}"
             - name: CSI_ENDPOINT
               value: /var/lib/kubelet/plugins/csi-isilon/csi_sock
             - name: X_CSI_MODE

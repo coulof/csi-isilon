@@ -54,6 +54,7 @@ type Service interface {
 
 // Opts defines service configuration options.
 type Opts struct {
+	PluginName   string
 	Endpoint     string
 	Port         string
 	EndpointURL  string
@@ -95,7 +96,11 @@ func (s *service) initializeService(ctx context.Context) {
 		// If the port number cannot be fetched, set it to default
 		opts.Port = constants.DefaultPortNumber
 	}
-
+	if pluginname, ok := csictx.LookupEnv(ctx, constants.CustomPluginName); ok {
+		opts.PluginName = pluginname
+	} else {
+		opts.PluginName = constants.PluginName
+	}
 	if ep, ok := csictx.LookupEnv(ctx, constants.EnvEndpoint); ok {
 		opts.Endpoint = ep
 		opts.EndpointURL = fmt.Sprintf("https://%s:%s", ep, opts.Port)
@@ -294,7 +299,7 @@ func (s *service) logServiceStats() {
 		fields["password"] = "******"
 	}
 
-	log.WithFields(fields).Infof("Configured '%s'", constants.PluginName)
+	log.WithFields(fields).Infof("Configured '%s'", s.opts.PluginName)
 }
 
 func (s *service) BeforeServe(

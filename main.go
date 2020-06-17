@@ -19,6 +19,7 @@ package main
 
 import (
 	"context"
+	"os"
 
 	"github.com/dell/csi-isilon/common/constants"
 	"github.com/dell/csi-isilon/provider"
@@ -27,15 +28,23 @@ import (
 
 // main is ignored when this package is built as a go plug-in
 func main() {
+    pluginName := os.Getenv("X_CSI_ISILON_PLUGIN_NAME")
+	if len(pluginName) == 0 {
+		pluginName = constants.PluginName
+    }
+
 	gocsi.Run(
 		context.Background(),
-		constants.PluginName,
+        pluginName,
 		"An Isilon Container Storage Interface (CSI) Plugin",
 		usage,
 		provider.New())
 }
 
-const usage = `    X_CSI_ISILON_ENDPOINT
+const usage = `    X_CSI_ISILON_PLUGIN_NAME
+        Specifies the name of the provider name (default: csi-isilon.dellemc.com)
+
+    X_CSI_ISILON_ENDPOINT
         Specifies the HTTPS endpoint for the Isilon REST API server. This parameter is
         required when running the Controller service.
 

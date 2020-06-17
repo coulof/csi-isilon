@@ -17,6 +17,8 @@ package constants
 */
 
 const (
+	// CustomPluginName is the name of the provider. It is used for multi array support
+	CustomPluginName = "X_CSI_ISILON_PLUGIN_NAME"
 
 	// EnvCSIEndpoint is the name of the unix domain socket that the csi driver is listening on
 	EnvCSIEndpoint = "CSI_ENDPOINT"

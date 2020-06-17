@@ -1,3 +1,6 @@
+# "pluginName" defines driver provisioner name. Change it only if you need a single kubernetes cluster to connect to muliple Isilon endpoints.
+pluginName: "csi-isilon.dellemc.com"
+
 # "isiIP" defines the HTTPs endpoint of the Isilon OneFS API server
 isiIP: 1.1.1.1
 

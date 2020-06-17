@@ -27,7 +27,6 @@ import (
 	csi "github.com/container-storage-interface/spec/lib/go/csi"
 	wrappers "github.com/golang/protobuf/ptypes/wrappers"
 
-	"github.com/dell/csi-isilon/common/constants"
 	"github.com/dell/csi-isilon/core"
 )
 
@@ -37,7 +36,7 @@ func (s *service) GetPluginInfo(
 	*csi.GetPluginInfoResponse, error) {
 
 	return &csi.GetPluginInfoResponse{
-		Name:          constants.PluginName,
+		Name:          s.opts.PluginName,
 		VendorVersion: core.SemVer,
 		Manifest:      Manifest,
 	}, nil
